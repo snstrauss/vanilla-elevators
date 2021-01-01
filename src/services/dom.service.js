@@ -1,6 +1,3 @@
-// let buildingRef;
-// let allElevators;
-
 import { callElevator } from "./building.service";
 
 let cachedElements = {};

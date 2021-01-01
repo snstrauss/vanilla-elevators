@@ -2,10 +2,7 @@
   --floor-height: 30vh;
 }
 .floor {
-  // border: 1px solid red;
-  &:not(:last-of-type) {
-    border-bottom: 1px solid black;
-  }
+  outline: 1px solid #444;
 
   width: 100%;
   height: var(--floor-height);

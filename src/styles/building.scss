@@ -1,8 +1,6 @@
 body {
   display: flex;
   flex-direction: column;
-
-  // overflow-y: hidden;
 }
 #building-params {
   display: flex;
@@ -23,10 +21,8 @@ body {
 }
 
 #building {
-  // border: 10px solid green;
   background-color: lightgray;
 
   flex: 20;
-  // overflow-y: scroll;
   position: relative;
 }
