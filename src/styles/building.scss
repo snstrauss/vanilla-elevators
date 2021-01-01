@@ -1,0 +1,32 @@
+body {
+  display: flex;
+  flex-direction: column;
+
+  // overflow-y: hidden;
+}
+#building-params {
+  display: flex;
+  justify-content: center;
+  padding: 1%;
+
+  flex: 1;
+
+  position: absolute;
+  width: 30vw;
+  height: 5vh;
+  top: 0;
+  z-index: 1;
+
+  label {
+    border: 1px solid red;
+  }
+}
+
+#building {
+  // border: 10px solid green;
+  background-color: lightgray;
+
+  flex: 20;
+  // overflow-y: scroll;
+  position: relative;
+}

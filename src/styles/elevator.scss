@@ -1,0 +1,49 @@
+#allElevators {
+  // border: 4px solid brown;
+
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  // height: calc(var(--floor-height) * var(--num-floors));
+  width: calc(10vw * var(--num-elevators));
+  height: 100%;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.shaft {
+  // border: 5px solid purple;
+  // background-color: violet;
+
+  width: calc(80% / var(--num-elevators));
+  height: 100%;
+  position: relative;
+
+  .elevator {
+    border: 2px solid blue;
+    background-color: firebrick;
+
+    width: 100%;
+    height: var(--floor-height);
+    position: absolute;
+    bottom: 0;
+
+    transition: transform var(--travel-time) ease-in-out,
+      background-color 0.25s linear;
+    transform: translateY(
+      calc(-1 * calc(var(--curr-floor, 0) * var(--floor-height)))
+    );
+    --distance: calc(var(--curr-floor) * var(--floor-height));
+    --translation: calc(-1 * var(--distance));
+    transform: translateY(var(--translation));
+  }
+
+  &.is-idle {
+    .elevator {
+      background-color: cornflowerblue;
+    }
+  }
+}
