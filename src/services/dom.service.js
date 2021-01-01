@@ -1,5 +1,4 @@
-import { callElevator } from "./building.service";
-
+import { queueElevatorRequest } from '../services/elevators.service';
 let cachedElements = {};
 
 function getCachedElement(type) {
@@ -67,7 +66,13 @@ function createNewFloor(floorNumber) {
     const button = document.createElement('button');
     button.classList.add('call-button');
     button.onclick = () => {
-        callElevator(floorNumber);
+        if (!button.classList.contains('waiting')) {
+            button.classList.add('waiting');
+
+            queueElevatorRequest(floorNumber).then(() => {
+                button.classList.remove('waiting');
+            });
+        }
     }
     floorContainer.append(button);
 
@@ -83,14 +88,41 @@ function createNewElevator(idx) {
     const shaft = document.createElement('div');
 
     shaft.classList.add('shaft', 'is-idle');
+    shaft.style.setProperty('--curr-floor', 0);
 
-    const elev = document.createElement('div');
-    elev.classList.add('elevator');
-    shaft.appendChild(elev);
+    const elevatorContainer = document.createElement('div');
+    elevatorContainer.classList.add('elevator');
+    shaft.appendChild(elevatorContainer);
+
+    const currTrip = document.createElement('div');
+    currTrip.classList.add('elevator-data');
+    currTrip.innerText = 'going to: '
+    const currTripText = document.createElement('span');
+    currTripText.classList.add('curr-trip-text');
+    currTrip.append(currTripText);
+    elevatorContainer.append(currTrip);
+
+    const plannedTrips = document.createElement('div');
+    plannedTrips.classList.add('elevator-data');
+    plannedTrips.innerText = 'next trips: ';
+    const plannedTripsText = document.createElement('span');
+    plannedTripsText.classList.add('planned-trips-text');
+    plannedTrips.append(plannedTripsText);
+    elevatorContainer.append(plannedTrips);
 
     return shaft;
 }
 
+const ELEVATOR_DATA_SELECTORS = {
+    currTrip: '.curr-trip-text',
+    plannedTrips: '.planned-trips-text'
+};
+function showElevatorData(elevatorObj, type) {
+    const newText = JSON.stringify(type === 'currTrip' ? elevatorObj.currTrip : elevatorObj.requests) || '';
+    elevatorObj.element.querySelector(ELEVATOR_DATA_SELECTORS[type]).innerText = newText;
+}
+
 export const elevator = {
-    createNewElevator
+    createNewElevator,
+    showElevatorData
 }
