@@ -5,15 +5,17 @@ body {
 #building-params {
   display: flex;
   justify-content: center;
-  padding: 1%;
 
   flex: 1;
 
-  position: absolute;
   width: 30vw;
   height: 5vh;
-  top: 0;
   z-index: 1;
+
+  position: absolute;
+  --dist: 1vw;
+  top: var(--dist);
+  right: var(--dist);
 
   label {
     border: 1px solid red;
