@@ -72,7 +72,7 @@ Elevator.prototype.startRide = function startRide() {
         }
         this.goToFloor(nextRequest).then(() => {
             const reachedFloorListener = this.reachedFloorCbQueue.splice(nextRequest, 1, null)[0];
-            reachedFloorListener();
+            reachedFloorListener && reachedFloorListener();
 
             setTimeout(() => {
                 this.startRide();
@@ -80,10 +80,11 @@ Elevator.prototype.startRide = function startRide() {
         })
     } else {
         this.toggleIdle();
-
-        this.goHomeTimeout = setTimeout(() => {
-            this.addCall(0);
-        }, 20 * 1000)
+        if (this.currFloor !== 0) {
+            this.goHomeTimeout = setTimeout(() => {
+                this.addCall(0);
+            }, 5 * 1000);
+        }
     }
 }
 
