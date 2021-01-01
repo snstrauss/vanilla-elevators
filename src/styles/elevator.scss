@@ -32,6 +32,14 @@
 
     --translation: calc(-1 * calc(var(--curr-floor) * var(--floor-height)));
     transform: translateY(var(--translation));
+
+    display: flex;
+    flex-direction: column;
+
+    .elevator-data {
+      border: 1px solid purple;
+      flex: 1;
+    }
   }
 
   &.is-idle {
