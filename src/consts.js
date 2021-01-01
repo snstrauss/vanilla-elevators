@@ -1,3 +1,3 @@
 export default {
-    TRAVEL_TIME: 3000
+    TRAVEL_TIME: 10000
 }
