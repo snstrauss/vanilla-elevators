@@ -2,8 +2,7 @@ import consts from "../consts";
 import Elevator from "../models/elevator.model";
 import Floor from "../models/floor.model";
 import { building } from "./dom.service";
-
-const allElevators = [];
+import { addElevatorToPool, resetElevators } from "./elevators.service";
 
 function addFloor(_, idx) {
     const newFloor = new Floor(idx);
@@ -19,7 +18,7 @@ function addElevator(_, idx) {
 
     const newElevator = new Elevator(idx);
 
-    allElevators.push(newElevator);
+    addElevatorToPool(newElevator);
     building.addToElevators(newElevator.element);
 }
 
@@ -34,11 +33,16 @@ function addMultipleElements(elementsCount, elementType) {
 
 export function createNewBuildingFromParams(buildingForm) {
     building.clearBuilding();
+    resetElevators();
 
     const buildData = new FormData(buildingForm);
 
     ['floors', 'elevators'].forEach((elementType) => {
-        const count = parseInt(buildData.get(elementType));
+        let count = parseInt(buildData.get(elementType));
+
+        if (elementType === 'floors') {
+            count++
+        };
 
         building.getBuilding().style.setProperty(`--num-${elementType}`, count);
 
@@ -46,8 +50,6 @@ export function createNewBuildingFromParams(buildingForm) {
     });
 
     building.getBuilding().style.setProperty(`--travel-time`, consts.TRAVEL_TIME + 'ms');
-}
 
-export function callElevator(floor) {
-    allElevators[0].goToFloor(floor);
+
 }

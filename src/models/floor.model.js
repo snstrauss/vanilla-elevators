@@ -5,6 +5,5 @@ export default function Floor(idx) {
 
     this.floorNum = idx;
 
-
     return this;
 }
