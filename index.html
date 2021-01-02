@@ -11,15 +11,17 @@
 
 <body>
     <form id="building-params" onsubmit="buildingMethods.initializeBuilding(this, event)">
-        <label for="floors">
-            floors
-            <input type="number" name="floors" placeholder="Number of floors" value="7" />
-        </label>
-        <label for="elevators">
-            elevators
-            <input type="number" name="elevators" placeholder="Number of elevators" value="2" />
-        </label>
-        <input type="submit">
+        <div class="inputs">
+            <label for="floors">
+                floors
+                <input type="number" name="floors" placeholder="Number of floors" value="7" />
+            </label>
+            <label for="elevators">
+                elevators
+                <input type="number" name="elevators" placeholder="Number of elevators" value="2" />
+            </label>
+        </div>
+        <input type="submit" value="Regenerate Building">
     </form>
     <div id="building"></div>
     <audio src="./src/sounds/short_beep.mp3" id="notification-bell"></audio>
