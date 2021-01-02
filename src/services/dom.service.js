@@ -77,7 +77,11 @@ function createNewFloor(floorNumber) {
                 .then(({ requestedElevator, gotToFloorPromise }) => {
                     showRemainingTime(requestedElevator);
                     return gotToFloorPromise;
-                }).then(elevatorReachedFloor);
+                }).then(elevatorReachedFloor)
+                .catch(_ => {
+                    floor.ringBell();
+                    button.classList.remove('waiting');
+                });
         }
     }
     floorContainer.append(button);

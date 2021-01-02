@@ -8,6 +8,10 @@ export function queueElevatorRequest(requestedFloor) {
     return new Promise((resolve) => {
         const nextElevator = findBestElevator(requestedFloor);
 
+        if (nextElevator.currFloor === requestedFloor) {
+            throw new Error('Elevator is already on this floor!');
+        }
+
         const gotToFloorPromise = new Promise((gotToFloor) => {
             nextElevator.listenToReachedFloor(requestedFloor, gotToFloor);
         });
