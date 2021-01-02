@@ -5,10 +5,19 @@ export function addElevatorToPool(elevator) {
 }
 
 export function queueElevatorRequest(requestedFloor) {
-    return new Promise((res) => {
+    return new Promise((resolve) => {
         const nextElevator = findBestElevator(requestedFloor);
-        nextElevator.listenToReachedFloor(requestedFloor, res);
+
+        const gotToFloorPromise = new Promise((gotToFloor) => {
+            nextElevator.listenToReachedFloor(requestedFloor, gotToFloor);
+        });
+
         nextElevator.addCall(requestedFloor);
+
+        resolve({
+            gotToFloorPromise,
+            requestedElevator: nextElevator,
+        });
     });
 }
 

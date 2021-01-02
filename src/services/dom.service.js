@@ -63,24 +63,66 @@ function createNewFloor(floorNumber) {
     floorNum.innerText = floorNumber;
     floorContainer.append(floorNum);
 
+    const arrivalTimer = document.createElement('div');
+    arrivalTimer.classList.add('arrival-timer');
+    floorContainer.append(arrivalTimer);
+
     const button = document.createElement('button');
     button.classList.add('call-button');
     button.onclick = () => {
         if (!button.classList.contains('waiting')) {
             button.classList.add('waiting');
 
-            queueElevatorRequest(floorNumber).then(() => {
-                button.classList.remove('waiting');
-            });
+            queueElevatorRequest(floorNumber)
+                .then(({ requestedElevator, gotToFloorPromise }) => {
+                    showRemainingTime(requestedElevator);
+                    return gotToFloorPromise;
+                }).then(elevatorReachedFloor);
         }
     }
     floorContainer.append(button);
 
+    function toggleTimer() {
+        arrivalTimer.classList.toggle('show');
+    }
+
+    function showRemainingTime(requestedElevator) {
+        let remainingTimeMs = requestedElevator.timeUntilIdle + 1000;
+
+        toggleTimer();
+        updateTimer();
+
+        const timerInterval = setInterval(updateTimer, 1000)
+        function updateTimer() {
+            remainingTimeMs -= 1000;
+
+            const formatted = new Date(remainingTimeMs).toISOString().slice(14, -5);
+
+            arrivalTimer.innerText = `${formatted} // [elevator ${requestedElevator.elevatorNum}]`;
+            if (remainingTimeMs === 0) {
+                clearInterval(timerInterval);
+            }
+        }
+
+    }
+
+    function elevatorReachedFloor() {
+        button.classList.remove('waiting');
+        toggleTimer();
+        floor.ringBell();
+    }
+
     return floorContainer;
 }
 
+function ringBell() {
+    const bell = getCachedElement('notification-bell');
+    bell.play();
+}
+
 export const floor = {
-    createNewFloor
+    createNewFloor,
+    ringBell
 }
 
 function createNewElevator(idx) {
