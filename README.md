@@ -18,7 +18,7 @@ $ npm start
 
 ## See it live
 
-Visit [arbox-vanilla-elevators.surge.sh](arbox-vanilla-elevators.surge.sh)
+Visit [arbox-vanilla-elevators.surge.sh](http://arbox-vanilla-elevators.surge.sh)
 <br />
 <br />
 
