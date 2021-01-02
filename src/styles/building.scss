@@ -8,7 +8,9 @@ body {
   z-index: 1;
   position: absolute;
   background-color: rgba(0, 0, 0, 0.3);
-  padding: 1rem;
+  --pad: 1rem;
+  padding-top: var(--pad);
+  padding-bottom: var(--pad);
 
   left: 50%;
   transform: translateX(-50%);
@@ -39,6 +41,8 @@ body {
       & > input {
         font-size: 1rem;
         text-align: center;
+
+        max-width: 6rem;
       }
     }
   }
