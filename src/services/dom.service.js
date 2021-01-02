@@ -99,6 +99,7 @@ function createNewElevator(idx) {
     currTrip.innerText = 'going to: '
     const currTripText = document.createElement('span');
     currTripText.classList.add('curr-trip-text');
+    currTripText.innerText = 'IDLE';
     currTrip.append(currTripText);
     elevatorContainer.append(currTrip);
 
@@ -118,7 +119,7 @@ const ELEVATOR_DATA_SELECTORS = {
     plannedTrips: '.planned-trips-text'
 };
 function showElevatorData(elevatorObj, type) {
-    const newText = JSON.stringify(type === 'currTrip' ? elevatorObj.currTrip : elevatorObj.requests) || '';
+    const newText = JSON.stringify(type === 'currTrip' ? elevatorObj.currTrip : elevatorObj.requests) || 'IDLE';
     elevatorObj.element.querySelector(ELEVATOR_DATA_SELECTORS[type]).innerText = newText;
 }
 
