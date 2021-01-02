@@ -165,7 +165,10 @@ const ELEVATOR_DATA_SELECTORS = {
     plannedTrips: '.planned-trips-text'
 };
 function showElevatorData(elevatorObj, type) {
-    const newText = JSON.stringify(type === 'currTrip' ? elevatorObj.currTrip : elevatorObj.requests).replace(/,/g, ', ') || 'IDLE';
+    const isTripData = type === 'currTrip';
+    const data = isTripData ? elevatorObj.currTrip : elevatorObj.requests;
+
+    const newText = (JSON.stringify(data) || 'IDLE').replace(/,/g, ', ');
     elevatorObj.element.querySelector(ELEVATOR_DATA_SELECTORS[type]).innerText = newText;
 }
 
