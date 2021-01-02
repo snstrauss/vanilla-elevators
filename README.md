@@ -16,4 +16,6 @@ $ npm start
 
 Visit [arbox-vanilla-elevators.surge.sh](arbox-vanilla-elevators.surge.sh)
 
-![this image](src/media/images/javascript.png)
+![javascript](src/media/images/javascript.png){height=250px width=250px}
+![surge](src/media/images/surge.png)
+![sass](src/media/images/sass.png)
