@@ -40,10 +40,6 @@ export function createNewBuildingFromParams(buildingForm) {
     ['floors', 'elevators'].forEach((elementType) => {
         let count = parseInt(buildData.get(elementType));
 
-        if (elementType === 'floors') {
-            count++
-        };
-
         building.getBuilding().style.setProperty(`--num-${elementType}`, count);
 
         addMultipleElements(count, elementType);
