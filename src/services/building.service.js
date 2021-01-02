@@ -4,6 +4,8 @@ import Floor from "../models/floor.model";
 import { building } from "./dom.service";
 import { addElevatorToPool, resetElevators } from "./elevators.service";
 
+const { TRAVEL_TIME } = consts.DURATIONS;
+
 function addFloor(_, idx) {
     const newFloor = new Floor(idx);
     building.addToBuilding(newFloor.element);
@@ -45,7 +47,7 @@ export function createNewBuildingFromParams(buildingForm) {
         addMultipleElements(count, elementType);
     });
 
-    building.getBuilding().style.setProperty(`--travel-time`, consts.TRAVEL_TIME + 'ms');
+    building.getBuilding().style.setProperty(`--travel-time`, TRAVEL_TIME + 'ms');
 
 
 }

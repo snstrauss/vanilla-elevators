@@ -1,6 +1,8 @@
 import consts from "../consts";
 import { elevator, elevator as elevatorDom } from "../services/dom.service";
 
+const { TRAVEL_TIME, WAIT_TIME, IDLE_TIMEOUT } = consts.DURATIONS;
+
 export default function Elevator(idx) {
     this.element = elevatorDom.createNewElevator(idx);
 
@@ -14,6 +16,9 @@ export default function Elevator(idx) {
 
     this.reachedFloorCbQueue = [];
 
+    this.timeUntilIdle = 0;
+    this.timeUntilIdleInterval = null;
+
     this.goHomeTimeout = null;
 
     return this;
@@ -22,7 +27,7 @@ export default function Elevator(idx) {
 Elevator.prototype.moveElevator = function moveElevator(floor) {
     return new Promise((res) => {
         this.element.style.setProperty('--curr-floor', floor);
-        setTimeout(res, consts.TRAVEL_TIME);
+        setTimeout(res, TRAVEL_TIME);
     })
 }
 
@@ -32,7 +37,7 @@ Elevator.prototype.changeCurrFloor = function changeCurrFloor(goingUp) {
 
 Elevator.prototype.goToFloor = function goToFloor(floor) {
     const floorDelta = floor - this.currFloor;
-    const timeInEachFloor = consts.TRAVEL_TIME / (Math.abs(floorDelta));
+    const timeInEachFloor = TRAVEL_TIME / (Math.abs(floorDelta));
     const goingUp = floorDelta >= 0;
 
     const floorChange = setInterval(() => {
@@ -47,10 +52,26 @@ Elevator.prototype.goToFloor = function goToFloor(floor) {
 Elevator.prototype.addCall = function addCall(request) {
     clearTimeout(this.goHomeTimeout);
 
+    this.timeUntilIdle += TRAVEL_TIME + (this.requests.length ? WAIT_TIME : 0);
     this.requests.push(request);
+
+    clearInterval(this.timeUntilIdleInterval)
+    this.timeUntilIdleInterval = setInterval(() => {
+        decreaseTimeUntilIdle(this);
+    }, 1000)
+
     elevator.showElevatorData(this, 'plannedTrips');
     if (this.isIdle) {
         this.startRide();
+    }
+
+    return this.requests.length;
+}
+
+function decreaseTimeUntilIdle(e) {
+    e.timeUntilIdle -= 1000;
+    if (e.timeUntilIdle === 0) {
+        clearInterval(e.timeUntilIdleInterval);
     }
 }
 
@@ -76,14 +97,14 @@ Elevator.prototype.startRide = function startRide() {
 
             setTimeout(() => {
                 this.startRide();
-            }, 2000);
+            }, WAIT_TIME);
         })
     } else {
         this.toggleIdle();
         if (this.currFloor !== 0) {
             this.goHomeTimeout = setTimeout(() => {
                 this.addCall(0);
-            }, 20 * 1000);
+            }, IDLE_TIMEOUT);
         }
     }
 }
