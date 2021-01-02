@@ -76,14 +76,14 @@ Elevator.prototype.startRide = function startRide() {
 
             setTimeout(() => {
                 this.startRide();
-            }, 1000);
+            }, 2000);
         })
     } else {
         this.toggleIdle();
         if (this.currFloor !== 0) {
             this.goHomeTimeout = setTimeout(() => {
                 this.addCall(0);
-            }, 5 * 1000);
+            }, 20 * 1000);
         }
     }
 }
