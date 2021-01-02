@@ -25,10 +25,10 @@ Visit [arbox-vanilla-elevators.surge.sh](arbox-vanilla-elevators.surge.sh)
 ## Tools used
 
 <div style="margin: 5%; display: flex; justify-content: space-evenly; align-items: center">
-    <a href="http://vanilla-js.com/" target="_blank">
+    <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5" target="_blank">
         <img src="src/media/images/html.png" width="100px" />
     </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
+    <a href="http://vanilla-js.com/" target="_blank">
         <img src="src/media/images/javascript.png" width="100px"  />
     </a>
     <a href="https://sass-lang.com/" target="_blank">
