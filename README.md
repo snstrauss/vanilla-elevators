@@ -16,4 +16,4 @@ $ npm start
 
 Visit [arbox-vanilla-elevators.surge.sh](arbox-vanilla-elevators.surge.sh)
 
-![this image]('./src/media/images/javascript.png')
+![this image](src/media/images/javascript.png)
