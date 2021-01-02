@@ -31,7 +31,7 @@
   }
 
   .call-button {
-    border: 2px solid darkturquoise;
+    border: 2px solid dimgrey;
 
     --size: 2vw;
     width: var(--size);
@@ -43,9 +43,9 @@
     left: 3%;
 
     transition: background-color 0.25s linear;
-    background-color: dimgrey;
+    background-color: seagreen;
     &.waiting {
-      background-color: chartreuse;
+      background-color: crimson;
     }
   }
 }
